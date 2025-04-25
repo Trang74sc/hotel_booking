@@ -1,0 +1,5 @@
+ALTER TABLE bookings
+ADD COLUMN payment_method VARCHAR(50) NOT NULL DEFAULT 'stripe',
+ADD COLUMN payment_status VARCHAR(50) NOT NULL DEFAULT 'pending',
+ADD COLUMN payment_id VARCHAR(255),
+ADD COLUMN payment_amount DECIMAL(10,2) NOT NULL DEFAULT 0.00; 
