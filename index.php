@@ -120,13 +120,13 @@ function getRoomImage($type) {
                         <a class="nav-link" href="#">Phòng</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tiện Nghi</a>
+                        <a class="nav-link" href="tiennghi.php">Tiện Nghi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Liên Hệ</a>
+                        <a class="nav-link" href="lienhe.php">Liên Hệ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Giới Thiệu</a>
+                        <a class="nav-link" href="gioithieu.php">Giới Thiệu</a>
                     </li>
                 </ul>
                 <div class="d-flex">
