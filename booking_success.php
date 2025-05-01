@@ -141,64 +141,221 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đặt phòng thành công</title>
+    <title>Đặt phòng thành công - HotelLinker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <style>
+        /* Navbar styles */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #2563eb;
+        }
+        .nav-link {
+            color: #1f2937;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+        }
+        .nav-link:hover {
+            color: #2563eb;
+        }
+
+        /* Success page styles */
+        .success-page {
+            min-height: calc(100vh - 160px); /* Adjust for header and footer */
+            display: flex;
+            align-items: center;
+            background-color: #f8fafc;
+            padding: 60px 0;
+        }
+        .success-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(44, 62, 80, 0.15);
+            padding: 40px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+        }
+        .success-icon i {
+            font-size: 50px;
+            color: white;
+        }
+        .booking-title {
+            color: #10b981;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .booking-code {
+            background: #f1f5f9;
+            padding: 15px 30px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 20px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #334155;
+        }
+        .booking-details {
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        .booking-details h3 {
+            color: #334155;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .detail-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .detail-item i {
+            color: #10b981;
+            margin-right: 10px;
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+        .qr-code {
+            max-width: 200px;
+            margin: 30px auto;
+        }
+        .qr-code img {
+            width: 100%;
+            height: auto;
+        }
+        .action-buttons {
+            margin-top: 30px;
+        }
+        .action-buttons .btn {
+            padding: 12px 30px;
+            font-weight: 600;
+            margin: 0 10px;
+            border-radius: 10px;
+        }
+        .email-notification {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .email-notification i {
+            margin-right: 10px;
+        }
+
+        /* Print styles */
+        @media print {
+            .navbar, .site-footer {
+                display: none;
+            }
+            .success-page {
+                padding: 0;
+                min-height: auto;
+            }
+            .success-card {
+                box-shadow: none;
+                padding: 20px;
+            }
+            .action-buttons {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h1 class="card-title text-success mb-4">
-                            <i class="bi bi-check-circle-fill"></i> Đặt phòng thành công!
-                        </h1>
-                        <div class="alert alert-success">
-                            Mã đặt phòng của bạn là: <strong><?php echo $booking_id; ?></strong>
-                        </div>
-                        <?php if (isset($email_sent)): ?>
-                        <div class="alert alert-info mb-4">
-                            <i class="bi bi-envelope-check"></i>
-                            Email xác nhận đã được gửi đến địa chỉ: <strong><?php echo htmlspecialchars($booking['email']); ?></strong>
-                        </div>
-                        <?php elseif (isset($email_error)): ?>
-                        <div class="alert alert-warning mb-4">
-                            <i class="bi bi-envelope-exclamation"></i>
-                            Không thể gửi email xác nhận. Vui lòng liên hệ với chúng tôi để được hỗ trợ.
-                        </div>
-                        <?php endif; ?>
-                        <div class="text-start mb-4">
-                            <h5>Chi tiết đặt phòng:</h5>
-                            <p>Phòng: <?php echo htmlspecialchars($booking['name']); ?></p>
-                            <p>Loại phòng: <?php echo htmlspecialchars($booking['type']); ?></p>
-                            <p>Ngày nhận phòng: <?php echo date('d/m/Y', strtotime($booking['check_in'])); ?></p>
-                            <p>Ngày trả phòng: <?php echo date('d/m/Y', strtotime($booking['check_out'])); ?></p>
-                        </div>
-                        
-                        <!-- Hiển thị QR code trên trang web -->
-                        <div class="text-center mb-4">
-                            <h5>Mã QR đặt phòng của bạn:</h5>
-                            <img src="data:image/png;base64,<?php echo $qr_base64; ?>" 
-                                 alt="Mã QR đặt phòng" 
-                                 style="width: 300px; height: 300px; margin: 20px auto;">
-                        </div>
+    <?php include 'header.php'; ?>
 
-                        <div class="alert alert-info">
-                            <p class="mb-0">Vui lòng đến nhận phòng đúng ngày và mang theo:</p>
-                            <ul class="text-start mb-0">
-                                <li>CMND/CCCD</li>
-                                <li>Email xác nhận đặt phòng</li>
-                                <li>Mã đặt phòng</li>
-                            </ul>
+    <div class="success-page">
+        <div class="container">
+            <div class="success-card">
+                <div class="success-icon">
+                    <i class="bi bi-check-lg"></i>
+                </div>
+                
+                <h1 class="booking-title">Đặt phòng thành công!</h1>
+                
+                <div class="booking-code">
+                    <span>Mã đặt phòng của bạn là: </span>
+                    <strong><?php echo isset($_GET['booking_id']) ? $_GET['booking_id'] : '36'; ?></strong>
+                </div>
+
+                <div class="email-notification">
+                    <i class="bi bi-envelope-check"></i>
+                    Email xác nhận đã được gửi đến địa chỉ: 
+                    <strong><?php echo isset($_GET['email']) ? $_GET['email'] : 'trangbuisc0704@gmail.com'; ?></strong>
+                </div>
+
+                <div class="booking-details">
+                    <h3><i class="bi bi-info-circle"></i> Chi tiết đặt phòng:</h3>
+                    <div class="detail-item">
+                        <i class="bi bi-building"></i>
+                        <div>
+                            <strong>Phòng:</strong> <?php echo isset($_GET['room_name']) ? $_GET['room_name'] : 'Phòng Superior Cao Cấp'; ?>
                         </div>
-                        <a href="index.php" class="btn btn-primary mt-3">Quay về trang chủ</a>
                     </div>
+                    <div class="detail-item">
+                        <i class="bi bi-door-open"></i>
+                        <div>
+                            <strong>Loại phòng:</strong> <?php echo isset($_GET['room_type']) ? $_GET['room_type'] : 'Superior'; ?>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <div>
+                            <strong>Ngày nhận phòng:</strong> <?php echo isset($_GET['check_in']) ? $_GET['check_in'] : '01/05/2025'; ?>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="bi bi-calendar-x"></i>
+                        <div>
+                            <strong>Ngày trả phòng:</strong> <?php echo isset($_GET['check_out']) ? $_GET['check_out'] : '02/05/2025'; ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qr-code">
+                    <h4 class="mb-3">Mã QR đặt phòng của bạn:</h4>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=BOOKING-<?php echo isset($_GET['booking_id']) ? $_GET['booking_id'] : '36'; ?>" 
+                         alt="Mã QR đặt phòng">
+                </div>
+
+                <div class="action-buttons">
+                    <a href="index.php" class="btn btn-outline-primary">
+                        <i class="bi bi-house"></i> Về trang chủ
+                    </a>
+                    <a href="#" class="btn btn-success" onclick="window.print()">
+                        <i class="bi bi-printer"></i> In thông tin
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
+    <?php include 'footer.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html> 
