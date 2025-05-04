@@ -6,7 +6,7 @@
     <title>Đăng Nhập</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-    body {
+        body {
         background: linear-gradient(135deg,rgb(255, 255, 255), #acb6e5);
         min-height: 100vh;
         display: flex;
@@ -29,8 +29,7 @@
     .btn {
         font-size: 0.95rem;
     }
-</style>
-
+    </style>
 </head>
 <body>
 

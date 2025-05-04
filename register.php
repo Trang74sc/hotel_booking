@@ -7,30 +7,29 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(to right, #ffecd2,rgb(255, 255, 255));
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.95rem;
-        }
-        .register-card {
-            width: 100%;
-            max-width: 600px;
-            background: #fff;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            font-size: 0.95rem;
-        }
-        .form-control {
-            font-size: 0.95rem;
-        }
-        .btn {
-            font-size: 0.95rem;
-        }
+        background: linear-gradient(to right, #ffecd2,rgb(255, 255, 255));
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.95rem;
+    }
+    .register-card {
+        width: 100%;
+        max-width: 600px;
+        background: #fff;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        font-size: 0.95rem;
+    }
+    .form-control {
+        font-size: 0.95rem;
+    }
+    .btn {
+        font-size: 0.95rem;
+    }
     </style>
-
 </head>
 <body>
 

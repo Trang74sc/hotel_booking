@@ -1,5 +1,12 @@
 <?php
 require_once 'config.php';
+session_start();
+require_once 'config.php';
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
 if (!isset($_SESSION['user_id'])) {
     // Gửi lại dữ liệu đã nhập nếu cần
     $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];

@@ -149,48 +149,46 @@ function getRoomImage($type) {
                 <div class="col-md-10">
                     <div class="search-box">
                     <h3 class="text-center mb-4">Tìm Phòng</h3>
-
-                        <?php if (isset($_SESSION['user_id'])): ?>
-                            <form action="search_rooms.php" method="GET" id="searchForm">
-                                <div class="row g-3"> 
-                                    <div class="col-md-3">
-                                        <label class="form-label">Ngày Nhận Phòng</label>
-                                        <input type="date" class="form-control" name="check_in" id="check_in" required>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Ngày Trả Phòng</label>
-                                        <input type="date" class="form-control" name="check_out" id="check_out" required>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">Người Lớn</label>
-                                        <select class="form-select" name="adults" required>
-                                            <?php for($i = 1; $i <= 5; $i++): ?>
-                                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                            <?php endfor; ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">Trẻ Em</label>
-                                        <select class="form-select" name="children">
-                                            <?php for($i = 0; $i <= 3; $i++): ?>
-                                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                            <?php endfor; ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">&nbsp;</label>
-                                        <button type="submit" class="btn btn-primary search-btn w-100">
-                                            <i class="bi bi-search me-2"></i>Tìm Phòng
-                                        </button>
-                                    </div>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <form action="search_rooms.php" method="GET" id="searchForm">
+                            <div class="row g-3"> 
+                                <div class="col-md-3">
+                                    <label class="form-label">Ngày Nhận Phòng</label>
+                                    <input type="date" class="form-control" name="check_in" id="check_in" required>
                                 </div>
-                            </form>
-                        <?php else: ?>
-                            <div class="alert alert-warning text-center">
-                                Vui lòng <a href="login.php" class="alert-link">đăng nhập</a> để sử dụng chức năng tìm phòng.
+                                <div class="col-md-3">
+                                    <label class="form-label">Ngày Trả Phòng</label>
+                                    <input type="date" class="form-control" name="check_out" id="check_out" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">Người Lớn</label>
+                                    <select class="form-select" name="adults" required>
+                                        <?php for($i = 1; $i <= 5; $i++): ?>
+                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                        <?php endfor; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">Trẻ Em</label>
+                                    <select class="form-select" name="children">
+                                        <?php for($i = 0; $i <= 3; $i++): ?>
+                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                        <?php endfor; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">&nbsp;</label>
+                                    <button type="submit" class="btn btn-primary search-btn w-100">
+                                        <i class="bi bi-search me-2"></i>Tìm Phòng
+                                    </button>
+                                </div>
                             </div>
-                        <?php endif; ?>
-
+                        </form>
+                    <?php else: ?>
+                        <div class="alert alert-warning text-center">
+                            Vui lòng <a href="login.php" class="alert-link">đăng nhập</a> để sử dụng chức năng tìm phòng.
+                        </div>
+                    <?php endif; ?>
                     </div>
                 </div>
             </div>
