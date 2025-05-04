@@ -48,7 +48,7 @@ function getRoomImage($type) {
     </style>
 </head>
 <body>
-<?php require_once 'header.php'; ?> <!-- Gồm navbar nếu bạn có -->
+<?php require_once 'header.php'; ?>
 
 <div class="container py-5">
     <a href="index.php" class="btn btn-secondary mb-4">← Quay lại danh sách</a>
@@ -65,9 +65,34 @@ function getRoomImage($type) {
             <p><strong>Loại:</strong> <?php echo htmlspecialchars($room['type']); ?></p>
             <p><strong>Sức chứa tối đa:</strong> <?php echo htmlspecialchars($room['max_guests']); ?> người</p>
             <p><strong>Giá:</strong> <?php echo number_format($room['price'], 0, ',', '.'); ?> VNĐ/đêm</p>
+
+            <?php if (!empty($room['amenities'])): ?>
+                <p><strong>Tiện nghi:</strong></p>
+                <ul class="list-inline">
+                    <?php
+                    $icons = [
+                        'wifi' => '📶 Wifi',
+                        'tv' => '📺 TV',
+                        'air_con' => '❄️ Điều hòa',
+                        'minibar' => '🍸 Minibar',
+                        'spa' => '💆 Spa',
+                        'bathtub' => '🛁 Bồn tắm',
+                        'sea_view' => '🌊 View biển'
+                    ];
+                    $amenities = explode(',', $room['amenities']);
+                    foreach ($amenities as $a) {
+                        $a = trim($a);
+                        $label = $icons[$a] ?? ucfirst($a);
+                        echo "<li class='list-inline-item badge bg-light text-dark px-2 py-1 mb-1'>$label</li>";
+                    }
+                    ?>
+                </ul>
+            <?php endif; ?>
+
             <?php if (!empty($room['description'])): ?>
                 <p><strong>Mô tả:</strong><br><?php echo nl2br(htmlspecialchars($room['description'])); ?></p>
             <?php endif; ?>
+
             <a href="booking.php?room_id=<?php echo $room['id']; ?>" class="btn btn-primary mt-3">Đặt phòng ngay</a>
         </div>
     </div>
