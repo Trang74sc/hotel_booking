@@ -82,6 +82,19 @@ $check_in_date = new DateTime($check_in);
 $check_out_date = new DateTime($check_out);
 $interval = $check_in_date->diff($check_out_date);
 $total_nights = $interval->days;
+
+// Function to get room image based on type
+function getRoomImage($type) {
+    switch (strtolower($type)) {
+        case 'đơn': return 'assets/images/phong_don.jpg';
+        case 'đôi': return 'assets/images/phong-doi.jpg';
+        case 'suite': return 'assets/images/phong_suite.jpeg';
+        case 'deluxe': return 'assets/images/phong_deluxe.jpg';
+        case 'dorm': return 'assets/images/phong_dorm.jpg';
+        case 'superior': return 'assets/images/phong_superior.jpg';
+        default: return 'assets/images/rooms/default.jpg';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -220,6 +233,21 @@ $total_nights = $interval->days;
     .alert a {
         font-weight: 500;
     }
+    
+    .navbar {
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+    
+    .nav-link {
+        color: #1f2937;
+        font-weight: 500;
+    }
 
     @media (max-width: 768px) {
         .room-info {
@@ -236,7 +264,7 @@ $total_nights = $interval->days;
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="index.php"> HotelLinker</a>
+            <a class="navbar-brand" href="#"> HotelLinker</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -249,15 +277,24 @@ $total_nights = $interval->days;
                         <a class="nav-link active" href="#">Phòng</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tiện Nghi</a>
+                        <a class="nav-link" href="tiennghi.php">Tiện Nghi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Liên Hệ</a>
+                        <a class="nav-link" href="lienhe.php">Liên Hệ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Giới Thiệu</a>
+                        <a class="nav-link" href="gioithieu.php">Giới Thiệu</a>
                     </li>
                 </ul>
+                <div class="d-flex">
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                    <span class="me-3">Xin chào, <?php echo $_SESSION['user_name']; ?></span>
+                    <a href="logout.php" class="btn btn-outline-danger">Đăng Xuất</a>
+                    <?php else: ?>
+                    <a href="login.php" class="btn btn-outline-primary me-2">Đăng Nhập</a>
+                    <a href="register.php" class="btn btn-primary">Đăng Ký</a>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </nav>
@@ -333,9 +370,15 @@ $total_nights = $interval->days;
                         <?php foreach ($available_rooms as $room): ?>
                             <div class="col-md-6 mb-4">
                                 <div class="room-card">
-                                    <img src="assets/images/rooms/<?php echo $room['image'] ?? 'default.jpg'; ?>" 
-                                         alt="<?php echo htmlspecialchars($room['name']); ?>" 
-                                         class="room-image">
+                                    <?php if (!empty($room['image'])): ?>
+                                        <img src="assets/images/rooms/<?php echo htmlspecialchars($room['image']); ?>" 
+                                             alt="<?php echo htmlspecialchars($room['name']); ?>" 
+                                             class="room-image">
+                                    <?php else: ?>
+                                        <img src="<?php echo getRoomImage($room['type']); ?>" 
+                                             alt="<?php echo htmlspecialchars($room['name']); ?>" 
+                                             class="room-image">
+                                    <?php endif; ?>
                                     
                                     <div class="room-info">
                                         <h4><?php echo htmlspecialchars($room['name']); ?></h4>
@@ -384,6 +427,8 @@ $total_nights = $interval->days;
         </div>
     </div>
 
+    <?php require_once 'footer.php'; ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html> 
+</html>
