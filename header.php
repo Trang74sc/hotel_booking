@@ -24,8 +24,13 @@
                 </li>
             </ul>
             <div class="d-flex">
-                <a href="login.php" class="btn btn-outline-primary me-2">Đăng Nhập</a>
-                <a href="register.php" class="btn btn-primary">Đăng Ký</a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <span class="me-3">Xin chào, <?php echo $_SESSION['user_name']; ?></span>
+                    <a href="logout.php" class="btn btn-outline-danger">Đăng Xuất</a>
+                    <?php else: ?>
+                    <a href="login.php" class="btn btn-outline-primary me-2">Đăng Nhập</a>
+                    <a href="register.php" class="btn btn-primary">Đăng Ký</a>
+                <?php endif; ?>
             </div>
         </div>
     </div>

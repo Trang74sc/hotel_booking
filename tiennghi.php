@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -80,8 +81,13 @@ require_once 'config.php';
                     <li class="nav-item"><a class="nav-link" href="gioithieu.php">Giới Thiệu</a></li>
                 </ul>
                 <div class="d-flex">
-                    <a href="#" class="btn btn-outline-primary me-2">Đăng Nhập</a>
-                    <a href="#" class="btn btn-primary">Đăng Ký</a>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <span class="me-3">Xin chào, <?php echo $_SESSION['user_name']; ?></span>
+                        <a href="logout.php" class="btn btn-outline-danger">Đăng Xuất</a>
+                        <?php else: ?>
+                        <a href="login.php" class="btn btn-outline-primary me-2">Đăng Nhập</a>
+                        <a href="register.php" class="btn btn-primary">Đăng Ký</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
