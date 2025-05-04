@@ -94,75 +94,143 @@ $total_nights = $interval->days;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
     <style>
-        .search-summary {
-            background: #f8fafc;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-        .search-summary .date {
-            color: #2563eb;
-            font-weight: 500;
-        }
-        .filter-sidebar {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 20px;
+    body {
+        background-color: #f1f5f9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #1e293b;
+    }
+
+    .search-summary {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+    }
+
+    .search-summary .date {
+        color: #2563eb;
+        font-weight: 600;
+    }
+
+    .filter-sidebar {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        position: sticky;
+        top: 20px;
+    }
+
+    .filter-sidebar h5 {
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 20px;
+    }
+
+    .form-check-label {
+        font-size: 15px;
+        color: #334155;
+    }
+
+    .btn-primary {
+        background-color: #2563eb;
+        border-color: #2563eb;
+    }
+
+    .btn-primary:hover {
+        background-color: #1d4ed8;
+        border-color: #1d4ed8;
+    }
+
+    .room-card {
+        background: #ffffff;
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .room-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .room-image {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+    }
+
+    .room-info {
+        padding: 20px;
+        border-top: 1px solid #f1f5f9;
+    }
+
+    .room-info h4 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #0f172a;
+    }
+
+    .facility-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 8px;
+        color: #64748b;
+        font-size: 14px;
+    }
+
+    .text-muted {
+        color: #64748b !important;
+        font-size: 14px;
+    }
+
+    .price-value {
+        font-size: 22px;
+        font-weight: bold;
+        color: #1d4ed8;
+    }
+
+    .price-unit {
+        font-size: 13px;
+        color: #64748b;
+    }
+
+    .btn-outline-primary {
+        border-radius: 8px;
+        padding: 8px 20px;
+        font-weight: 500;
+    }
+
+    .btn-primary {
+        border-radius: 8px;
+        padding: 8px 20px;
+        font-weight: 500;
+    }
+
+    .alert-info {
+        background-color: #e0f2fe;
+        border-color: #bae6fd;
+        color: #0369a1;
+    }
+
+    .alert a {
+        font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+        .room-info {
+            padding: 16px;
         }
         .room-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 10px;
+            height: 200px;
         }
-        .amenities-list {
-            display: flex;
-            gap: 15px;
-            margin: 10px 0;
-        }
-        .amenities-list span {
-            color: #666;
-        }
-        .room-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 20px;
-        }
-        .room-details {
-            flex: 1;
-        }
-        .room-pricing {
-            text-align: right;
-            min-width: 200px;
-        }
-        .room-card {
-            margin-bottom: 30px;
-            border: none;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .facility-item {
-            display: inline-block;
-            margin-right: 20px;
-            color: #666;
-        }
-        .guest-info {
-            color: #666;
-            margin: 10px 0;
-        }
-        .price-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2563eb;
-        }
-        .price-unit {
-            color: #666;
-            font-size: 14px;
-        }
-    </style>
+    }
+</style>
+
 </head>
 <body>
     <!-- Navbar -->
