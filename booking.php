@@ -63,23 +63,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['customer_name'])) {
         $error = "Vui lòng điền đầy đủ thông tin";
     } else {
         try {
-            // Lưu thông tin đặt phòng
-            $stmt = $pdo->prepare("
-                INSERT INTO bookings (
-                    room_id, customer_name, email,
-                    check_in, check_out, status, created_at
-                ) VALUES (
-                    ?, ?, ?, ?, ?, 'pending', NOW()
-                )
-            ");
-            
-            $stmt->execute([
-                $room_id,
-                $customer_name,
-                $customer_email,
-                $check_in,
-                $check_out
-            ]);
+                session_start();
+                if (!isset($_SESSION['user_id'])) {
+                    header("Location: login.php");
+                    exit;
+                }
+                $user_id = $_SESSION['user_id'];
+
+                // Lưu thông tin đặt phòng
+                $stmt = $pdo->prepare("
+                    INSERT INTO bookings (
+                        user_id, room_id, customer_name, email,
+                        check_in, check_out, status, created_at
+                    ) VALUES (
+                        ?, ?, ?, ?, ?, ?, 'pending', NOW()
+                    )
+                ");
+
+                $stmt->execute([
+                    $user_id,
+                    $room_id,
+                    $customer_name,
+                    $customer_email,
+                    $check_in,
+                    $check_out
+                ]);
+
 
             $booking_id = $pdo->lastInsertId();
 

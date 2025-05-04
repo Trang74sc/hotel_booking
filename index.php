@@ -1,6 +1,6 @@
 <?php
 require_once 'config.php';
-
+session_start();
 // Fetch all rooms
 $stmt = $pdo->query("SELECT * FROM rooms");
 $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -130,8 +130,13 @@ function getRoomImage($type) {
                     </li>
                 </ul>
                 <div class="d-flex">
-                    <a href="#" class="btn btn-outline-primary me-2">Đăng Nhập</a>
-                    <a href="#" class="btn btn-primary">Đăng Ký</a>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                    <span class="me-3">Xin chào, <?php echo $_SESSION['user_name']; ?></span>
+                    <a href="logout.php" class="btn btn-outline-danger">Đăng Xuất</a>
+                    <?php else: ?>
+                    <a href="login.php" class="btn btn-outline-primary me-2">Đăng Nhập</a>
+                    <a href="register.php" class="btn btn-primary">Đăng Ký</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -143,41 +148,49 @@ function getRoomImage($type) {
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="search-box">
-                        <h3 class="text-center mb-4">Tìm Phòng</h3>
-                        <form action="search_rooms.php" method="GET" id="searchForm">
-                            <div class="row g-3">
-                                <div class="col-md-3">
-                                    <label class="form-label">Ngày Nhận Phòng</label>
-                                    <input type="date" class="form-control" name="check_in" id="check_in" required>
+                    <h3 class="text-center mb-4">Tìm Phòng</h3>
+
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <form action="search_rooms.php" method="GET" id="searchForm">
+                                <div class="row g-3"> 
+                                    <div class="col-md-3">
+                                        <label class="form-label">Ngày Nhận Phòng</label>
+                                        <input type="date" class="form-control" name="check_in" id="check_in" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Ngày Trả Phòng</label>
+                                        <input type="date" class="form-control" name="check_out" id="check_out" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Người Lớn</label>
+                                        <select class="form-select" name="adults" required>
+                                            <?php for($i = 1; $i <= 5; $i++): ?>
+                                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Trẻ Em</label>
+                                        <select class="form-select" name="children">
+                                            <?php for($i = 0; $i <= 3; $i++): ?>
+                                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">&nbsp;</label>
+                                        <button type="submit" class="btn btn-primary search-btn w-100">
+                                            <i class="bi bi-search me-2"></i>Tìm Phòng
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <label class="form-label">Ngày Trả Phòng</label>
-                                    <input type="date" class="form-control" name="check_out" id="check_out" required>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="form-label">Người Lớn</label>
-                                    <select class="form-select" name="adults" required>
-                                        <?php for($i = 1; $i <= 5; $i++): ?>
-                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                        <?php endfor; ?>
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="form-label">Trẻ Em</label>
-                                    <select class="form-select" name="children">
-                                        <?php for($i = 0; $i <= 3; $i++): ?>
-                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                        <?php endfor; ?>
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="form-label">&nbsp;</label>
-                                    <button type="submit" class="btn btn-primary search-btn w-100">
-                                        <i class="bi bi-search me-2"></i>Tìm Phòng
-                                    </button>
-                                </div>
+                            </form>
+                        <?php else: ?>
+                            <div class="alert alert-warning text-center">
+                                Vui lòng <a href="login.php" class="alert-link">đăng nhập</a> để sử dụng chức năng tìm phòng.
                             </div>
-                        </form>
+                        <?php endif; ?>
+
                     </div>
                 </div>
             </div>

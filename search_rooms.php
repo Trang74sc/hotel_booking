@@ -1,6 +1,11 @@
 <?php
 require_once 'config.php';
-
+if (!isset($_SESSION['user_id'])) {
+    // Gửi lại dữ liệu đã nhập nếu cần
+    $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
+    header("Location: login.php");
+    exit;
+}
 // Validate input parameters
 $check_in = $_GET['check_in'] ?? '';
 $check_out = $_GET['check_out'] ?? '';
