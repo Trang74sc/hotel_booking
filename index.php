@@ -8,7 +8,7 @@ $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
 function getRoomImage($type) {
     switch (strtolower($type)) {
         case 'Đơn': return 'assets/images/phong_don.jpg';
-        case 'Đôi': return 'assets/images/phong_doi.jpg';
+        case 'Đôi': return 'assets/images/phong-doi.jpg';
         case 'suite': return 'assets/images/phong_suite.jpeg';
         case 'deluxe': return 'assets/images/phong_deluxe.jpg';
         case 'dorm': return 'assets/images/phong_dorm.jpg';
@@ -259,7 +259,7 @@ function getRoomImage($type) {
     <!-- Hero Section with Search -->
     <section class="hero-section">
         <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
-            <h1>CHÀO MỪNG ĐẾN VỚI HOTELLINKER</h1>
+            <h1>CHÀO MỪNG ĐẾN VỚI HotelLinker</h1>
             <p>Khám phá không gian sang trọng và tiện nghi tại trung tâm Hà Nội.</p>
             <div class="search-box" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                 <h3>Tìm Phòng Hoàn Hảo</h3>

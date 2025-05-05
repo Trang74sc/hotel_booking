@@ -335,7 +335,7 @@ session_start();
     <!-- Hero Section -->
     <section class="page-header">
         <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
-            <h1>VỀ HOTELLINKER</h1>
+            <h1>VỀ HotelLinker</h1>
             <p>Nơi sang trọng hiện đại hòa quyện với nét đẹp văn hóa Việt Nam, mang đến trải nghiệm lưu trú không thể quên.</p>
             <a href="booking.php" class="btn btn-primary">Đặt Phòng Ngay</a>
         </div>
