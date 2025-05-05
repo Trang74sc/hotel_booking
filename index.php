@@ -267,15 +267,15 @@ function getRoomImage($type) {
                     <form action="search_rooms.php" method="GET" id="searchForm">
                         <div class="row g-3">
                             <div class="col-md-3">
-                                <label class="form-label">Ngày Nhận Phòng</label>
+                                <label class="form-label"style="color: black;">Ngày Nhận Phòng</label>
                                 <input type="date" class="form-control" name="check_in" id="check_in" required>
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label">Ngày Trả Phòng</label>
+                                <label class="form-label"style="color: black;">Ngày Trả Phòng</label>
                                 <input type="date" class="form-control" name="check_out" id="check_out" required>
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label">Người Lớn</label>
+                                <label class="form-label"style="color: black;">Người Lớn</label>
                                 <select class="form-select" name="adults" required>
                                     <?php for($i = 1; $i <= 5; $i++): ?>
                                         <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
@@ -283,7 +283,7 @@ function getRoomImage($type) {
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label">Trẻ Em</label>
+                                <label class="form-label" style="color: black;">Trẻ Em</label>
                                 <select class="form-select" name="children">
                                     <?php for($i = 0; $i <= 3; $i++): ?>
                                         <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
