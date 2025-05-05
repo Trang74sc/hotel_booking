@@ -19,6 +19,40 @@ session_start();
             overflow-x: hidden;
         }
 
+        /* Navbar */
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #111827;
+        }
+        .nav-link {
+            font-weight: 500;
+            color: #4b5563;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #d4af37;
+        }
+        .btn-outline-primary {
+            border-color: #d4af37;
+            color: #d4af37;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 8px 20px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .btn-outline-primary:hover {
+            background: #d4af37;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
         /* Page Header (Hero Section) */
         .page-header {
             position: relative;
@@ -165,11 +199,18 @@ session_start();
             .facility-info {
                 padding: 20px;
             }
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            .btn-outline-primary {
+                padding: 6px 15px;
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar (Unchanged) -->
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="index.php">HotelLinker</a>
@@ -186,11 +227,11 @@ session_start();
                 </ul>
                 <div class="d-flex">
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <span class="me-3">Xin chào, <?php echo $_SESSION['user_name']; ?></span>
+                        <span class="me-3">Xin chào, <?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
                         <a href="logout.php" class="btn btn-outline-danger">Đăng Xuất</a>
                     <?php else: ?>
                         <a href="login.php" class="btn btn-outline-primary me-2">Đăng Nhập</a>
-                        <a href="register.php" class="btn btn-primary">Đăng Ký</a>
+                        <a href="register.php" class="btn btn-outline-primary">Đăng Ký</a>
                     <?php endif; ?>
                 </div>
             </div>
