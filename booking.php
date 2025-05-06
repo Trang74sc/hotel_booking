@@ -47,15 +47,24 @@ $interval = $check_in_date->diff($check_out_date);
 $total_nights = $interval->days;
 $total_price = $room['price'] * $total_nights;
 
+$error = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['customer_name'])) {
     $customer_name = trim($_POST['customer_name'] ?? '');
     $customer_email = trim($_POST['customer_email'] ?? '');
     $customer_phone = trim($_POST['customer_phone'] ?? '');
     $payment_method = trim($_POST['payment_method'] ?? '');
 
+    // Validate input
     if (empty($customer_name) || empty($customer_email) || empty($customer_phone) || empty($payment_method)) {
-        $error = "Vui lòng điền đầy đủ thông tin";
-    } else {
+        $error = "Vui lòng điền đầy đủ thông tin.";
+    } elseif (!filter_var($customer_email, FILTER_VALIDATE_EMAIL)) {
+        $error = "Email không hợp lệ. Vui lòng nhập lại.";
+    } elseif (!preg_match('/^(0|\+84)[0-9]{9}$/', $customer_phone)) {
+        $error = "Số điện thoại không hợp lệ. Vui lòng nhập lại.";
+    }
+
+    if (empty($error)) {
         try {
             session_start();
             if (!isset($_SESSION['user_id'])) {
@@ -72,7 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['customer_name'])) {
                     ?, ?, ?, ?, ?, ?, 'pending', NOW()
                 )
             ");
-
             $stmt->execute([
                 $user_id,
                 $room_id,
@@ -102,16 +110,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['customer_name'])) {
                     'success_url' => SITE_URL . '/booking_success.php?session_id={CHECKOUT_SESSION_ID}&booking_id=' . $booking_id,
                     'cancel_url' => SITE_URL . "/booking.php?room_id=$room_id&check_in=$check_in&check_out=$check_out",
                 ]);
-
                 header("Location: " . $checkout_session->url);
                 exit;
             }
-            // Xử lý PayPal nếu cần
+
+        
+
         } catch (Exception $e) {
-            $error = $e->getMessage();
+            $error = "Đã xảy ra lỗi: " . $e->getMessage();
         }
     }
 }
+?>
+
 ?>
 
 <!DOCTYPE html>
