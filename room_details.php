@@ -42,6 +42,7 @@ function getRoomImage($type) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
     <style>
         /* General Styles */
@@ -158,6 +159,67 @@ function getRoomImage($type) {
             max-width: 1200px;
         }
 
+        /* Flatpickr */
+        .flatpickr-input {
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .flatpickr-input:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+        }
+
+        /* Modal */
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        .modal-header {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #111827;
+        }
+        .modal-body {
+            font-size: 1rem;
+            color: #4b5563;
+            text-align: center;
+        }
+        .modal-footer {
+            border-top: none;
+            justify-content: center;
+        }
+        .btn-login, .btn-register {
+            background: #d4af37;
+            border: none;
+            padding: 10px 20px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background 0.3s ease, transform 0.3s ease;
+            margin: 0 5px;
+        }
+        .btn-login:hover, .btn-register:hover {
+            background: #b8972f;
+            transform: translateY(-3px);
+        }
+        .btn-outline-secondary {
+            border-color: #4b5563;
+            color: #4b5563;
+            border-radius: 8px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-secondary:hover {
+            background: #4b5563;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .room-details-section {
@@ -178,6 +240,18 @@ function getRoomImage($type) {
             .btn-outline-primary, .btn-primary {
                 padding: 6px 15px;
                 font-size: 0.85rem;
+            }
+            .modal-footer {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn-login, .btn-register {
+                width: 100%;
+                margin: 5px 0;
+            }
+            .btn-outline-secondary {
+                width: 100%;
+                margin: 5px 0;
             }
         }
     </style>
@@ -257,21 +331,92 @@ function getRoomImage($type) {
                             <p><strong>Mô tả:</strong><br><?php echo nl2br(htmlspecialchars($room['description'])); ?></p>
                         <?php endif; ?>
 
-                        <a href="index.php?room_id=<?php echo $room['id']; ?>" class="btn btn-primary mt-3">Đặt phòng ngay</a>
+                        <!-- Form để chọn ngày nhận/trả phòng -->
+                        <form id="bookingForm" method="GET" action="booking.php" class="mt-3">
+                            <input type="hidden" name="room_id" value="<?php echo $room['id']; ?>">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="check_in" class="form-label">Ngày nhận phòng</label>
+                                    <input type="text" class="form-control flatpickr-input" id="check_in" name="check_in" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="check_out" class="form-label">Ngày trả phòng</label>
+                                    <input type="text" class="form-control flatpickr-input" id="check_out" name="check_out" required>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary mt-2" id="bookNowBtn">Đặt phòng ngay</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Modal thông báo đăng nhập -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Yêu cầu đăng nhập</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn cần đăng nhập hoặc đăng ký để thực hiện đặt phòng.
+                </div>
+                <div class="modal-footer">
+                    <a href="login.php" class="btn btn-login">Đăng nhập</a>
+                    <a href="register.php" class="btn btn-register">Đăng ký</a>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?php require_once 'footer.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js"></script>
     <script>
         AOS.init({
             once: true,
             offset: 100
+        });
+
+        // Khởi tạo Flatpickr cho ngày nhận/trả phòng
+        flatpickr("#check_in", {
+            dateFormat: "Y-m-d",
+            minDate: "today",
+            onChange: function(selectedDates, dateStr) {
+                // Cập nhật ngày trả phòng tối thiểu là ngày sau ngày nhận phòng
+                const checkOutPicker = document.querySelector("#check_out")._flatpickr;
+                checkOutPicker.set("minDate", dateStr);
+            }
+        });
+
+        flatpickr("#check_out", {
+            dateFormat: "Y-m-d",
+            minDate: "tomorrow"
+        });
+
+        // Xử lý sự kiện nhấn nút "Đặt phòng ngay"
+        document.getElementById('bookNowBtn').addEventListener('click', function() {
+            const checkIn = document.getElementById('check_in').value;
+            const checkOut = document.getElementById('check_out').value;
+
+            if (!checkIn || !checkOut) {
+                alert('Vui lòng chọn ngày nhận phòng và ngày trả phòng.');
+                return;
+            }
+
+            <?php if (isset($_SESSION['user_id'])): ?>
+                // Nếu đã đăng nhập, gửi form để chuyển đến trang booking
+                document.getElementById('bookingForm').submit();
+            <?php else: ?>
+                // Nếu chưa đăng nhập, hiển thị modal
+                const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                loginModal.show();
+            <?php endif; ?>
         });
     </script>
 </body>

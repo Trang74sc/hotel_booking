@@ -17,6 +17,55 @@ session_start();
         /* General Styles */
         body {
             overflow-x: hidden;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #111827;
+        }
+        .nav-link {
+            font-weight: 500;
+            color: #4b5563;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #d4af37;
+        }
+        .btn-outline-primary {
+            border-color: #d4af37;
+            color: #d4af37;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 8px 20px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .btn-outline-primary:hover {
+            background: #d4af37;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+        .btn-outline-danger {
+            border-color: #dc3545;
+            color: #dc3545;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 8px 20px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .btn-outline-danger:hover {
+            background: #dc3545;
+            color: #fff;
+            transform: translateY(-3px);
         }
 
         /* Page Header (Hero Section) */
@@ -92,7 +141,7 @@ session_start();
             margin-bottom: 30px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid #e5e7eb;
-            min-height: 520px; /* Ensure equal height */
+            min-height: 520px;
             display: flex;
             flex-direction: column;
         }
@@ -147,7 +196,7 @@ session_start();
             margin-right: 10px;
         }
         .social-links {
-            margin-top: auto; /* Push social links to bottom */
+            margin-top: auto;
             padding-top: 20px;
         }
 
@@ -222,6 +271,13 @@ session_start();
 
         /* Responsive Adjustments */
         @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            .btn-outline-primary, .btn-outline-danger {
+                padding: 6px 15px;
+                font-size: 0.85rem;
+            }
             .page-header {
                 height: 60vh;
                 background-attachment: scroll;
@@ -242,7 +298,7 @@ session_start();
                 padding: 20px;
             }
             .contact-card, .form-card {
-                min-height: auto; /* Remove fixed height on mobile */
+                min-height: auto;
             }
             .map-section iframe {
                 height: 300px;
@@ -261,7 +317,7 @@ session_start();
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="index.php">Trang Chủ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Phòng</a></li>
+                    <li class="nav-item"><a class="nav-link" href="search_rooms.php">Phòng</a></li>
                     <li class="nav-item"><a class="nav-link" href="tiennghi.php">Tiện Nghi</a></li>
                     <li class="nav-item"><a class="nav-link active" href="lienhe.php">Liên Hệ</a></li>
                     <li class="nav-item"><a class="nav-link" href="gioithieu.php">Giới Thiệu</a></li>
@@ -272,7 +328,7 @@ session_start();
                         <a href="logout.php" class="btn btn-outline-danger">Đăng Xuất</a>
                     <?php else: ?>
                         <a href="login.php" class="btn btn-outline-primary me-2">Đăng Nhập</a>
-                        <a href="register.php" class="btn btn-primary">Đăng Ký</a>
+                        <a href="register.php" class="btn btn-outline-primary">Đăng Ký</a>
                     <?php endif; ?>
                 </div>
             </div>
