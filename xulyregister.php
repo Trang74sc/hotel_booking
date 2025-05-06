@@ -2,15 +2,16 @@
 session_start();
 require_once 'config.php';
 
-$name = $_POST['name'];
-$email = $_POST['email'];
-$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+$name = trim($_POST['name'] ?? '');
+$email = trim($_POST['email'] ?? '');
+$password = password_hash($_POST['password'] ?? '', PASSWORD_DEFAULT);
 
 // Kiểm tra email đã tồn tại chưa
 $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
 $stmt->execute([$email]);
 if ($stmt->fetch()) {
-    header("Location: register.php?error=Email đã được sử dụng");
+    $_SESSION['register_error'] = "Email đã được sử dụng.";
+    header("Location: register.php");
     exit;
 }
 
@@ -19,7 +20,9 @@ $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?
 if ($stmt->execute([$name, $email, $password])) {
     $_SESSION['user_id'] = $pdo->lastInsertId();
     $_SESSION['user_name'] = $name;
+    $_SESSION['register_success'] = "Đăng ký thành công!";
     header("Location: index.php");
 } else {
-    header("Location: register.php?error=Đăng ký thất bại");
+    $_SESSION['register_error'] = "Đăng ký thất bại. Vui lòng thử lại.";
+    header("Location: register.php");
 }

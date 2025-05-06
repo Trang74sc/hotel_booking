@@ -7,8 +7,8 @@
                     <h3 class="text-white">HotelLinker</h3>
                 </div>
                 <div class="footer-contact">
-                    <p><i class="bi bi-geo-alt-fill me-2"></i>123 Trần Phú, TP Hồ Chí Minh</p>
-                    <p><i class="bi bi-telephone-fill me-2"></i>(84) 236 3759 777</p>
+                    <p><i class="bi bi-geo-alt-fill me-2"></i>12 Chùa Bộc, Hà Nội</p>
+                    <p><i class="bi bi-telephone-fill me-2"></i>(84) 123 456 789</p>
                     <p><i class="bi bi-envelope-fill me-2"></i>info@hotellinker.com</p>
                 </div>
             </div>

@@ -208,6 +208,13 @@ session_start();
     <section class="login-section">
         <div class="login-card" data-aos="fade-up" data-aos-duration="1000">
             <h2>🔐 Đăng Nhập</h2>
+            <?php if (!empty($_SESSION['login_error'])): ?>
+                <div class="alert alert-danger text-center">
+                    <?= htmlspecialchars($_SESSION['login_error']) ?>
+                </div>
+            <?php unset($_SESSION['login_error']); ?>
+            <?php endif; ?>
+
             <form action="xulylogin.php" method="POST">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>

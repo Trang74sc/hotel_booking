@@ -208,6 +208,20 @@ session_start();
     <section class="register-section">
         <div class="register-card" data-aos="fade-up" data-aos-duration="1000">
             <h2>📝 Đăng Ký Tài Khoản</h2>
+            <?php if (!empty($_SESSION['register_error'])): ?>
+                <div class="alert alert-danger text-center">
+                    <?= htmlspecialchars($_SESSION['register_error']) ?>
+                </div>
+                <?php unset($_SESSION['register_error']); ?>
+            <?php endif; ?>
+
+            <?php if (!empty($_SESSION['register_success'])): ?>
+                <div class="alert alert-success text-center">
+                    <?= htmlspecialchars($_SESSION['register_success']) ?>
+                </div>
+                <?php unset($_SESSION['register_success']); ?>
+            <?php endif; ?>
+
             <form action="xulyregister.php" method="POST">
                 <div class="mb-3">
                     <label for="name" class="form-label">Họ và Tên</label>
