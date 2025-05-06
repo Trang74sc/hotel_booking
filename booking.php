@@ -1,4 +1,11 @@
 <?php
+session_start(); // Bắt đầu phiên làm việc
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php"); 
+    exit; 
+}
+$user_id = $_SESSION['user_id']; 
 require_once 'config.php';
 require_once 'vendor/autoload.php';
 
@@ -121,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['customer_name'])) {
         }
     }
 }
-?>
+
 
 ?>
 
@@ -394,12 +401,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['customer_name'])) {
 
     <div class="container py-5">
         <!-- Error Message -->
-        <?php if (isset($error)): ?>
-            <div class="alert alert-danger" data-aos="fade-up" data-aos-duration="1000">
-                <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                <?php echo htmlspecialchars($error); ?>
-            </div>
-        <?php endif; ?>
+        <?php if (!empty($error)): ?>
+    <div class="alert alert-danger">
+        <i class="fas fa-exclamation-triangle"></i> <?= htmlspecialchars($error) ?>
+    </div>
+<?php endif; ?>
 
         <div class="row">
             <!-- Booking Details (Left) -->
