@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['customer_name'])) {
             }
             $user_id = $_SESSION['user_id'];
 
-            $stmt = $pdo->prepare("
+           $stmt = $pdo->prepare("
                 INSERT INTO bookings (
                     user_id, room_id, customer_name, email,
                     check_in, check_out, status, created_at
