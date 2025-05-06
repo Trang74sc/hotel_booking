@@ -30,7 +30,7 @@ define('SMTP_PORT', 587);
 define('SMTP_USERNAME', 'nguyenthithanh2126@gmail.com');
 define('SMTP_PASSWORD', 'odtf wxvv iops zpoa'); // Use App Password for Gmail
 define('SMTP_FROM_EMAIL', 'nguyenthithanh@gmail.com');
-define('SMTP_FROM_NAME', 'Việt Hotel');
+define('SMTP_FROM_NAME', 'HotelLinker');
 
 // Website configuration
 define('SITE_URL', 'http://localhost/trang_bt');
