@@ -21,7 +21,7 @@ if (!$room) {
 function getRoomImage($type) {
     switch (mb_strtolower($type, 'UTF-8')) {
         case 'đơn': return 'assets/images/phong_don.jpg';
-        case 'đôi': return 'assets/images/phong_doi.jpg';
+        case 'đôi': return 'assets/images/phong-doi.jpg';
         case 'suite': return 'assets/images/phong_suite.jpeg';
         case 'deluxe': return 'assets/images/phong_deluxe.jpg';
         case 'dorm': return 'assets/images/phong_dorm.jpg';
@@ -257,7 +257,7 @@ function getRoomImage($type) {
                             <p><strong>Mô tả:</strong><br><?php echo nl2br(htmlspecialchars($room['description'])); ?></p>
                         <?php endif; ?>
 
-                        <a href="booking.php?room_id=<?php echo $room['id']; ?>" class="btn btn-primary mt-3">Đặt phòng ngay</a>
+                        <a href="index.php?room_id=<?php echo $room['id']; ?>" class="btn btn-primary mt-3">Đặt phòng ngay</a>
                     </div>
                 </div>
             </div>
