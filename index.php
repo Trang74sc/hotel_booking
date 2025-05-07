@@ -1,10 +1,8 @@
 <?php
 require_once 'config.php';
 session_start();
-// Fetch all rooms
 $stmt = $pdo->query("SELECT * FROM rooms");
 $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 function getRoomImage($type) {
     switch (strtolower($type)) {
         case 'Đơn': return 'assets/images/phong_don.jpg';
@@ -21,23 +19,25 @@ function getRoomImage($type) {
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+    <!-- Cấu hình meta cho mã hóa, responsive và SEO -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="HotelLinker - Đặt phòng khách sạn sang trọng tại Hà Nội với giá tốt nhất. Khám phá các phòng nghỉ đẳng cấp và dịch vụ hàng đầu.">
     <title>HotelLinker - Trang Chủ</title>
+    <!-- Nhúng Bootstrap, Bootstrap Icons, Google Fonts, AOS và CSS tùy chỉnh -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
     <style>
-        /* General Styles */
+        /* Định dạng chung cho trang */
         body {
             overflow-x: hidden;
             font-family: 'Roboto', sans-serif;
         }
 
-        /* Navbar */
+        /* Thanh điều hướng (navbar) */
         .navbar {
             background: #fff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -71,7 +71,7 @@ function getRoomImage($type) {
             transform: translateY(-3px);
         }
 
-        /* Hero Section */
+        /* Phần tiêu đề (hero section) với ảnh nền và form tìm kiếm */
         .hero-section {
             position: relative;
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('assets/images/header.jpg') no-repeat center/cover;
@@ -133,7 +133,7 @@ function getRoomImage($type) {
             font-size: 1rem;
         }
 
-        /* Room Listings */
+        /* Phần danh sách phòng */
         .room-section {
             padding: 80px 0;
             background: #f9fafb;
@@ -190,7 +190,7 @@ function getRoomImage($type) {
             color: #d4af37;
         }
 
-        /* Responsive Adjustments */
+        /* Responsive: điều chỉnh giao diện cho màn hình nhỏ */
         @media (max-width: 768px) {
             .hero-section {
                 height: 60vh;
@@ -228,7 +228,7 @@ function getRoomImage($type) {
     </style>
 </head>
 <body>
-    <!-- Navbar -->
+    <!-- Thanh điều hướng (Navbar) -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="index.php">HotelLinker</a>
@@ -256,26 +256,28 @@ function getRoomImage($type) {
         </div>
     </nav>
 
-    <!-- Hero Section with Search -->
+    <!-- Phần tiêu đề (Hero Section) -->
     <section class="hero-section">
         <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
             <h1>CHÀO MỪNG ĐẾN VỚI HotelLinker</h1>
             <p>Khám phá không gian sang trọng và tiện nghi tại trung tâm Hà Nội.</p>
             <div class="search-box" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                 <h3>Tìm Phòng Hoàn Hảo</h3>
+
+                <!-- Form tìm phòng -->
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <form action="search_rooms.php" method="GET" id="searchForm">
                         <div class="row g-3">
                             <div class="col-md-3">
-                                <label class="form-label"style="color: black;">Ngày Nhận Phòng</label>
+                                <label class="form-label" style="color: black;">Ngày Nhận Phòng</label>
                                 <input type="date" class="form-control" name="check_in" id="check_in" required>
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label"style="color: black;">Ngày Trả Phòng</label>
+                                <label class="form-label" style="color: black;">Ngày Trả Phòng</label>
                                 <input type="date" class="form-control" name="check_out" id="check_out" required>
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label"style="color: black;">Người Lớn</label>
+                                <label class="form-label" style="color: black;">Người Lớn</label>
                                 <select class="form-select" name="adults" required>
                                     <?php for($i = 1; $i <= 5; $i++): ?>
                                         <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
@@ -291,7 +293,7 @@ function getRoomImage($type) {
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label"> </label>
+                                <label class="form-label">&nbsp;</label>
                                 <button type="submit" class="btn search-btn w-100">
                                     <i class="bi bi-search me-2"></i>Tìm Phòng
                                 </button>
@@ -307,7 +309,7 @@ function getRoomImage($type) {
         </div>
     </section>
 
-    <!-- Room Listings -->
+    <!-- Phần danh sách phòng-->
     <section class="room-section">
         <h2 data-aos="fade-up" data-aos-duration="1000">KHÁM PHÁ CÁC PHÒNG NGHỈ</h2>
         <div class="container">
@@ -326,6 +328,7 @@ function getRoomImage($type) {
                                      class="room-image" 
                                      loading="lazy">
                             <?php endif; ?>
+                            
                             <div class="room-info">
                                 <h3 class="room-title"><?php echo htmlspecialchars($room['name']); ?></h3>
                                 <div class="room-features">
@@ -350,20 +353,20 @@ function getRoomImage($type) {
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
         AOS.init({
-            once: true,
-            offset: 100
+            once: true, 
+            offset: 100 
         });
 
-        // Set minimum date for check-in to today
+
         const today = new Date().toISOString().split('T')[0];
         const checkInInput = document.getElementById('check_in');
         const checkOutInput = document.getElementById('check_out');
         const searchForm = document.getElementById('searchForm');
 
-        // Set minimum date for check-in
+
         checkInInput.min = today;
         
-        // Update check-out minimum date when check-in changes
+
         checkInInput.addEventListener('change', function() {
             const checkInDate = new Date(this.value);
             const nextDay = new Date(checkInDate);
@@ -371,12 +374,13 @@ function getRoomImage($type) {
             
             checkOutInput.min = nextDay.toISOString().split('T')[0];
             
+            // Nếu ngày trả phòng không hợp lệ, tự động đặt thành ngày sau ngày nhận phòng
             if (checkOutInput.value && new Date(checkOutInput.value) <= checkInDate) {
                 checkOutInput.value = nextDay.toISOString().split('T')[0];
             }
         });
 
-        // Form validation before submit
+        // Kiểm tra form trước khi gửi
         searchForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -387,12 +391,12 @@ function getRoomImage($type) {
                 alert('Vui lòng chọn ngày nhận phòng và trả phòng');
                 return;
             }
-            
             if (checkIn >= checkOut) {
                 alert('Ngày trả phòng phải sau ngày nhận phòng');
                 return;
             }
             
+            // Gửi form nếu hợp lệ
             this.submit();
         });
     </script>
