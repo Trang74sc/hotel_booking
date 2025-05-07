@@ -117,13 +117,14 @@ try {
     $mail->isSMTP();
     $mail->Host = SMTP_HOST;
     $mail->SMTPAuth = true;
-    $mail->Username = SMTP_USERNAME;
-    $mail->Password = SMTP_PASSWORD;
+    $mail->Username = 'hoangtuongntls@gmail.com';
+    $mail->Password = "fskbkzvgbgvplzga";
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = SMTP_PORT;
     $mail->CharSet = 'UTF-8';
 
     $mail->setFrom(SMTP_FROM_EMAIL, SMTP_FROM_NAME);
+    //$mail->setFrom('hoangtuongntls@gmail.com', 'BBBooking System');
     $mail->addAddress($booking['email']);
 
     // Đính kèm file QR code

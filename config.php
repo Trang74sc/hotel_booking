@@ -27,8 +27,8 @@ define('STRIPE_PUBLIC_KEY', 'pk_test_51RGhvKEHsCxOfofeTAVahwa2SXDk1rfbPjcoZ4skHP
 // Email configuration
 define('SMTP_HOST', 'smtp.gmail.com');
 define('SMTP_PORT', 587);
-define('SMTP_USERNAME', 'nguyenthithanh2126@gmail.com');
-define('SMTP_PASSWORD', 'odtf wxvv iops zpoa'); // Use App Password for Gmail
+define('SMTP_USERNAME', 'hoangtuongntls@gmail.com');
+define('SMTP_PASSWORD', 'fskbkzvgbgvplzga');
 define('SMTP_FROM_EMAIL', 'nguyenthithanh@gmail.com');
 define('SMTP_FROM_NAME', 'HotelLinker');
 
