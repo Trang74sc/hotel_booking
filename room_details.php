@@ -1,33 +1,27 @@
 <?php
-// Nạp tệp cấu hình (thường chứa kết nối cơ sở dữ liệu như PDO instance)
 require_once 'config.php';
-
-// Khởi động session để theo dõi trạng thái đăng nhập của người dùng (lưu user_id, user_name)
 session_start();
 
-// Kiểm tra xem tham số 'id' có được gửi qua URL không và đảm bảo nó là số
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     echo "Phòng không tồn tại.";
-    exit; // Thoát khỏi script nếu id không hợp lệ
+    exit; 
 }
 
-// Chuyển đổi id thành số nguyên để đảm bảo an toàn khi truy vấn
 $id = intval($_GET['id']);
 
-// Chuẩn bị truy vấn SQL để lấy thông tin phòng từ bảng 'rooms' dựa trên id
-$stmt = $pdo->prepare("SELECT * FROM rooms WHERE id = ?");
-$stmt->execute([$id]); // Thực thi truy vấn với id
-$room = $stmt->fetch(PDO::FETCH_ASSOC); // Lấy dữ liệu phòng dưới dạng mảng kết hợp
 
-// Kiểm tra nếu không tìm thấy phòng với id tương ứng
+$stmt = $pdo->prepare("SELECT * FROM rooms WHERE id = ?");
+$stmt->execute([$id]); 
+$room = $stmt->fetch(PDO::FETCH_ASSOC); 
+
+
 if (!$room) {
     echo "Phòng không tồn tại.";
-    exit; // Thoát khỏi script
+    exit; 
 }
 
-// Hàm trả về đường dẫn ảnh mặc định dựa trên loại phòng nếu phòng không có ảnh cụ thể
+
 function getRoomImage($type) {
-    // Chuyển loại phòng thành chữ thường để so sánh
     switch (mb_strtolower($type, 'UTF-8')) {
         case 'đơn': return 'assets/images/phong_don.jpg';
         case 'đôi': return 'assets/images/phong-doi.jpg';
@@ -35,7 +29,7 @@ function getRoomImage($type) {
         case 'deluxe': return 'assets/images/phong_deluxe.jpg';
         case 'dorm': return 'assets/images/phong_dorm.jpg';
         case 'superior': return 'assets/images/phong_superior.jpg';
-        default: return 'assets/images/rooms/default.jpg'; // Ảnh mặc định nếu loại phòng không khớp
+        default: return 'assets/images/rooms/default.jpg'; 
     }
 }
 ?>
@@ -43,16 +37,13 @@ function getRoomImage($type) {
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <!-- Thiết lập mã hóa ký tự UTF-8 để hỗ trợ tiếng Việt -->
     <meta charset="UTF-8">
-    <!-- Đảm bảo giao diện responsive trên các thiết bị -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Mô tả SEO cho trang chi tiết phòng -->
     <meta name="description" content="Chi tiết phòng tại HotelLinker - Khám phá phòng nghỉ sang trọng với tiện nghi hiện đại.">
     <!-- Tiêu đề trang, hiển thị tên phòng từ dữ liệu -->
     <title>Chi Tiết Phòng - <?php echo htmlspecialchars($room['name']); ?> | HotelLinker</title>
     
-    <!-- Nạp các thư viện CSS bên ngoài -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
@@ -276,9 +267,7 @@ function getRoomImage($type) {
     <!-- Thanh điều hướng (Navbar) -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <!-- Logo liên kết về trang chủ -->
             <a class="navbar-brand" href="index.php">HotelLinker</a>
-            <!-- Nút toggle cho menu trên mobile -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -291,14 +280,12 @@ function getRoomImage($type) {
                     <li class="nav-item"><a class="nav-link" href="lienhe.php">Liên Hệ</a></li>
                     <li class="nav-item"><a class="nav-link" href="gioithieu.php">Giới Thiệu</a></li>
                 </ul>
-                <!-- Hiển thị thông tin đăng nhập hoặc nút đăng nhập/đăng ký -->
+                
                 <div class="d-flex">
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <!-- Nếu người dùng đã đăng nhập, hiển thị tên và nút đăng xuất -->
                         <span class="me-3">Xin chào, <?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
                         <a href="logout.php" class="btn btn-outline-danger">Đăng Xuất</a>
                     <?php else: ?>
-                        <!-- Nếu chưa đăng nhập, hiển thị nút đăng nhập và đăng ký -->
                         <a href="login.php" class="btn btn-outline-primary me-2">Đăng Nhập</a>
                         <a href="register.php" class="btn btn-outline-primary">Đăng Ký</a>
                     <?php endif; ?>
@@ -310,37 +297,28 @@ function getRoomImage($type) {
     <!-- Phần chi tiết phòng -->
     <section class="room-details-section">
         <div class="container">
-            <!-- Nút quay lại danh sách phòng -->
             <a href="index.php" class="btn btn-outline-primary mb-4" data-aos="fade-up" data-aos-duration="1000">← Quay lại danh sách</a>
             <div class="row">
-                <!-- Cột hiển thị ảnh phòng -->
                 <div class="col-md-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                     <?php if (!empty($room['image'])): ?>
-                        <!-- Nếu phòng có ảnh cụ thể, hiển thị ảnh từ thư mục assets -->
                         <img src="assets/images/rooms/<?php echo htmlspecialchars($room['image']); ?>" class="room-image" alt="<?php echo htmlspecialchars($room['name']); ?>" loading="lazy">
                     <?php else: ?>
-                        <!-- Nếu không có ảnh, sử dụng ảnh mặc định dựa trên loại phòng -->
                         <img src="<?php echo getRoomImage($room['type']); ?>" class="room-image" alt="<?php echo htmlspecialchars($room['name']); ?>" loading="lazy">
                     <?php endif; ?>
                 </div>
+
                 <!-- Cột hiển thị thông tin phòng -->
                 <div class="col-md-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                     <div class="room-info">
-                        <!-- Tên phòng -->
                         <h2><?php echo htmlspecialchars($room['name']); ?></h2>
-                        <!-- Loại phòng -->
                         <p><strong>Loại:</strong> <?php echo htmlspecialchars($room['type']); ?></p>
-                        <!-- Sức chứa tối đa -->
                         <p><strong>Sức chứa tối đa:</strong> <?php echo htmlspecialchars($room['max_guests']); ?> người</p>
-                        <!-- Giá phòng (định dạng số với dấu chấm) -->
                         <p><strong>Giá:</strong> <?php echo number_format($room['price'], 0, ',', '.'); ?> VNĐ/đêm</p>
 
                         <?php if (!empty($room['amenities'])): ?>
-                            <!-- Hiển thị danh sách tiện nghi nếu có -->
                             <p><strong>Tiện nghi:</strong></p>
                             <ul class="list-inline">
                                 <?php
-                                // Mảng ánh xạ tiện nghi với biểu tượng Bootstrap Icons
                                 $icons = [
                                     'wifi' => '<i class="bi bi-wifi me-1"></i> Wifi',
                                     'tv' => '<i class="bi bi-tv me-1"></i> TV',
@@ -351,11 +329,9 @@ function getRoomImage($type) {
                                     'sea_view' => '<i class="bi bi-water me-1"></i> View biển'
                                 ];
                                 // Chuyển chuỗi tiện nghi thành mảng (tách bởi dấu phẩy)
-                                $amenities = explode(',', $room['amenities']);
-                                // Lặp qua từng tiện nghi
+                                $amenities = explode(',', $room['amenities']); //$room['amenities'] = "wifi, điều hòa, tivi";$amenities = ["wifi", " điều hòa", " tivi"];
                                 foreach ($amenities as $a) {
-                                    $a = trim($a); // Xóa khoảng trắng thừa
-                                    // Lấy biểu tượng hoặc tên tiện nghi (nếu không có trong $icons)
+                                    $a = trim($a); 
                                     $label = $icons[$a] ?? ucfirst($a);
                                     echo "<li class='list-inline-item badge'>$label</li>";
                                 }
@@ -370,21 +346,17 @@ function getRoomImage($type) {
 
                         <!-- Form chọn ngày nhận/trả phòng để đặt phòng -->
                         <form id="bookingForm" method="GET" action="booking.php" class="mt-3">
-                            <!-- Trường ẩn chứa ID phòng -->
                             <input type="hidden" name="room_id" value="<?php echo $room['id']; ?>">
                             <div class="row">
-                                <!-- Trường chọn ngày nhận phòng -->
                                 <div class="col-md-6 mb-3">
                                     <label for="check_in" class="form-label">Ngày nhận phòng</label>
                                     <input type="text" class="form-control flatpickr-input" id="check_in" name="check_in" required>
                                 </div>
-                                <!-- Trường chọn ngày trả phòng -->
                                 <div class="col-md-6 mb-3">
                                     <label for="check_out" class="form-label">Ngày trả phòng</label>
                                     <input miền="text" class="form-control flatpickr-input" id="check_out" name="check_out" required>
                                 </div>
                             </div>
-                            <!-- Nút kích hoạt đặt phòng -->
                             <button type="button" class="btn btn-primary mt-2" id="bookNowBtn">Đặt phòng ngay</button>
                         </form>
                     </div>
@@ -405,11 +377,8 @@ function getRoomImage($type) {
                     Bạn cần đăng nhập hoặc đăng ký để thực hiện đặt phòng.
                 </div>
                 <div class="modal-footer">
-                    <!-- Nút chuyển đến trang đăng nhập -->
                     <a href="login.php" class="btn btn-login">Đăng nhập</a>
-                    <!-- Nút chuyển đến trang đăng ký -->
                     <a href="register.php" class="btn btn-register">Đăng ký</a>
-                    <!-- Nút đóng modal -->
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Đóng</button>
                 </div>
             </div>
@@ -426,14 +395,14 @@ function getRoomImage($type) {
     <script>
         // Khởi tạo thư viện AOS để tạo hiệu ứng cuộn trang
         AOS.init({
-            once: true, // Chỉ chạy hiệu ứng một lần
-            offset: 100 // Khoảng cách kích hoạt hiệu ứng
+            once: true, 
+            offset: 100 
         });
 
         // Khởi tạo Flatpickr cho trường chọn ngày nhận phòng
         flatpickr("#check_in", {
-            dateFormat: "Y-m-d", // Định dạng ngày
-            minDate: "today", // Không cho chọn ngày trước hôm nay
+            dateFormat: "Y-m-d", 
+            minDate: "today", 
             onChange: function(selectedDates, dateStr) {
                 // Khi chọn ngày nhận phòng, cập nhật ngày trả phòng tối thiểu
                 const checkOutPicker = document.querySelector("#check_out")._flatpickr;
@@ -444,23 +413,21 @@ function getRoomImage($type) {
         // Khởi tạo Flatpickr cho trường chọn ngày trả phòng
         flatpickr("#check_out", {
             dateFormat: "Y-m-d",
-            minDate: "tomorrow" // Ngày trả phòng tối thiểu là ngày mai
+            minDate: "tomorrow" 
         });
 
         // Xử lý sự kiện khi nhấn nút "Đặt phòng ngay"
         document.getElementById('bookNowBtn').addEventListener('click', function() {
-            // Lấy giá trị ngày nhận và trả phòng
             const checkIn = document.getElementById('check_in').value;
             const checkOut = document.getElementById('check_out').value;
 
-            // Kiểm tra xem người dùng đã chọn đủ ngày chưa
+
             if (!checkIn || !checkOut) {
                 alert('Vui lòng chọn ngày nhận phòng và ngày trả phòng.');
                 return;
             }
 
             <?php if (isset($_SESSION['user_id'])): ?>
-                // Nếu đã đăng nhập, gửi form để chuyển đến trang booking.php
                 document.getElementById('bookingForm').submit();
             <?php else: ?>
                 // Nếu chưa đăng nhập, hiển thị modal yêu cầu đăng nhập
