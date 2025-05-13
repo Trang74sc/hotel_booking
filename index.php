@@ -340,7 +340,7 @@ function getRoomImage($type) {
                                 
                                 
                                 <div class="room-price"><?php echo number_format($room['price'], 0, ',', '.'); ?> VNĐ/đêm</div>
-                                    <a href="room_details.php?id=<?php echo $room['id']; ?>" class="btn btn-outline-primary">Chi Tiết</a> //room_details.php?id=5 url
+                                    <a href="room_details.php?id=<?php echo $room['id']; ?>" class="btn btn-outline-primary">Chi Tiết</a>     <!-- room_details.php?id=5 url-->
                                 </div>
                             </div>
                         </div>
