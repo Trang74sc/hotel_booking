@@ -336,8 +336,11 @@ function getRoomImage($type) {
                                     <div><i class="bi bi-house-door me-2"></i>Loại: <?php echo htmlspecialchars($room['type']); ?></div>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div class="room-price"><?php echo number_format($room['price'], 0, ',', '.'); ?> VNĐ/đêm</div>
-                                    <a href="room_details.php?id=<?php echo $room['id']; ?>" class="btn btn-outline-primary">Chi Tiết</a>
+                                  
+                                
+                                
+                                <div class="room-price"><?php echo number_format($room['price'], 0, ',', '.'); ?> VNĐ/đêm</div>
+                                    <a href="room_details.php?id=<?php echo $room['id']; ?>" class="btn btn-outline-primary">Chi Tiết</a> //room_details.php?id=5 url
                                 </div>
                             </div>
                         </div>
@@ -382,7 +385,7 @@ function getRoomImage($type) {
 
         // Kiểm tra form trước khi gửi
         searchForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            e.preventDefault();  // chặn gửi tạm thời
             
             const checkIn = new Date(checkInInput.value);
             const checkOut = new Date(checkOutInput.value);

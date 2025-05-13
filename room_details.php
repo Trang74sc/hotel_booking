@@ -8,13 +8,9 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 
 $id = intval($_GET['id']);
-
-
 $stmt = $pdo->prepare("SELECT * FROM rooms WHERE id = ?");
 $stmt->execute([$id]); 
 $room = $stmt->fetch(PDO::FETCH_ASSOC); 
-
-
 if (!$room) {
     echo "Phòng không tồn tại.";
     exit; 
@@ -420,7 +416,6 @@ function getRoomImage($type) {
         document.getElementById('bookNowBtn').addEventListener('click', function() {
             const checkIn = document.getElementById('check_in').value;
             const checkOut = document.getElementById('check_out').value;
-
 
             if (!checkIn || !checkOut) {
                 alert('Vui lòng chọn ngày nhận phòng và ngày trả phòng.');
