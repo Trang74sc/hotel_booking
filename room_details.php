@@ -325,7 +325,7 @@ function getRoomImage($type) {
                                     'sea_view' => '<i class="bi bi-water me-1"></i> View biển'
                                 ];
                                 // Chuyển chuỗi tiện nghi thành mảng (tách bởi dấu phẩy)
-                                $amenities = explode(',', $room['amenities']); //$room['amenities'] = "wifi, điều hòa, tivi";$amenities = ["wifi", " điều hòa", " tivi"];
+                                $amenities = explode(',', $room['amenities']); 
                                 foreach ($amenities as $a) {
                                     $a = trim($a); 
                                     $label = $icons[$a] ?? ucfirst($a);
