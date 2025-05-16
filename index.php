@@ -1,8 +1,8 @@
 <?php
 require_once 'config.php';
 session_start();
-$stmt = $pdo->query("SELECT * FROM rooms");
-$rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmt = $pdo->query("SELECT * FROM rooms"); //pdo doi tuong ket noi smst sql
+$rooms = $stmt->fetchAll(PDO::FETCH_ASSOC); //mang
 function getRoomImage($type) {
     switch (strtolower($type)) {
         case 'Đơn': return 'assets/images/phong_don.jpg';
@@ -243,6 +243,8 @@ function getRoomImage($type) {
                     <li class="nav-item"><a class="nav-link" href="lienhe.php">Liên Hệ</a></li>
                     <li class="nav-item"><a class="nav-link" href="gioithieu.php">Giới Thiệu</a></li>
                 </ul>
+
+
                 <div class="d-flex">
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <span class="me-3">Xin chào, <?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
@@ -340,6 +342,8 @@ function getRoomImage($type) {
                                 
                                 
                                 <div class="room-price"><?php echo number_format($room['price'], 0, ',', '.'); ?> VNĐ/đêm</div>
+
+
                                     <a href="room_details.php?id=<?php echo $room['id']; ?>" class="btn btn-outline-primary">Chi Tiết</a>     <!-- room_details.php?id=5 url-->
                                 </div>
                             </div>
@@ -375,7 +379,7 @@ function getRoomImage($type) {
             const nextDay = new Date(checkInDate);
             nextDay.setDate(checkInDate.getDate() + 1);
             
-            checkOutInput.min = nextDay.toISOString().split('T')[0];
+        checkOutInput.min = nextDay.toISOString().split('T')[0];
             
             // Nếu ngày trả phòng không hợp lệ, tự động đặt thành ngày sau ngày nhận phòng
             if (checkOutInput.value && new Date(checkOutInput.value) <= checkInDate) {

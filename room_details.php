@@ -10,12 +10,11 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $id = intval($_GET['id']);
 $stmt = $pdo->prepare("SELECT * FROM rooms WHERE id = ?");
 $stmt->execute([$id]); 
-$room = $stmt->fetch(PDO::FETCH_ASSOC); 
-if (!$room) {
+$room = $stmt->fetch(PDO::FETCH_ASSOC); //$room = ['id' => 3, 'name' => 'Phòng Deluxe', 'price' => 1000000 ]; 
+if (!$room) {  // tức là: if (false)
     echo "Phòng không tồn tại.";
     exit; 
 }
-
 
 function getRoomImage($type) {
     switch (mb_strtolower($type, 'UTF-8')) {
@@ -343,6 +342,7 @@ function getRoomImage($type) {
                         <!-- Form chọn ngày nhận/trả phòng để đặt phòng -->
                         <form id="bookingForm" method="GET" action="booking.php" class="mt-3">
                             <input type="hidden" name="room_id" value="<?php echo $room['id']; ?>">
+                             <!--booking.php?room_id=2&check_in=2025-05-22&check_out=2025-05-26-->
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="check_in" class="form-label">Ngày nhận phòng</label>
